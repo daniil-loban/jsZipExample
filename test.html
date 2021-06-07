@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js" integrity="sha512-uVSVjE7zYsGz4ag0HEzfugJ78oHCI1KhdkivjQro8ABL/PRiEO4ROwvrolYAcZnky0Fl/baWKYilQfWvESliRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
+</head>
+<body>
+<script>
+    var zip = new JSZip();
+    zip.file("Hello.txt", "Hello World\n");
+    zip.file("Hello2.txt", "Hello2 World\n");
+    //var img = zip.folder("images");
+    //img.file("smile.gif", imgData, {base64: true});
+    zip.generateAsync({type:"blob"})
+    .then((content) => {
+        // see FileSaver.js
+        saveAs(content, "example.zip");
+    });
+</script>
+</body>
+</html>
