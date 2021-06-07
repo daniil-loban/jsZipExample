@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title></title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js" integrity="sha512-uVSVjE7zYsGz4ag0HEzfugJ78oHCI1KhdkivjQro8ABL/PRiEO4ROwvrolYAcZnky0Fl/baWKYilQfWvESliRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js" integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
 
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"
+    integrity="sha512-uVSVjE7zYsGz4ag0HEzfugJ78oHCI1KhdkivjQro8ABL/PRiEO4ROwvrolYAcZnky0Fl/baWKYilQfWvESliRA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"
+    integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
+
 <body>
-<script>
-    var zip = new JSZip();
-    zip.file("Hello.txt", "Hello World\n");
-    zip.file("Hello2.txt", "Hello2 World\n");
-    //var img = zip.folder("images");
-    //img.file("smile.gif", imgData, {base64: true});
-    zip.generateAsync({type:"blob"})
-    .then((content) => {
-        // see FileSaver.js
-        saveAs(content, "example.zip");
-    });
-</script>
+  <script>
+    const getFiles = async () => {
+      const file1 = await fetch('./examples/example01.cpp').then(res => res.text())
+      const file2 = await fetch('./examples/example02.cpp').then(res => res.text())
+      var zip = new JSZip();
+      zip.file("example01.cpp", file1);
+      zip.file("example02.cpp", file2);
+      //var img = zip.folder("images");
+      //img.file("smile.gif", imgData, {base64: true});
+      zip.generateAsync({ type: "blob" })
+        .then((content) => {
+          // see FileSaver.js
+          saveAs(content, "example.zip");
+        });
+    }
+    getFiles()
+  </script>
 </body>
+
 </html>
